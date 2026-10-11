@@ -1,0 +1,75 @@
+AUTO-EAT SCRIPTS - WINDOWS SETUP
+=================================
+
+Run these one step at a time in PowerShell, not all at once.
+
+
+STEP 1 - Install Python (only once)
+-----------------------------------
+Download Python from https://www.python.org and run the installer.
+IMPORTANT: tick "Add python.exe to PATH" at the bottom of the first screen.
+
+Check that it worked:
+
+    py --version
+
+
+STEP 2 - Allow virtual environments to activate (only once)
+-----------------------------------------------------------
+Windows blocks unknown scripts by default (that's a good thing!).
+This allows scripts you created yourself to run:
+
+    Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+
+
+STEP 3 - Create a project folder and a virtual environment (only once)
+----------------------------------------------------------------------
+Put auto_eat.py and auto_eat_watch.py in a folder, then go there:
+
+    cd path\to\your\folder
+
+Create the virtual environment (an isolated box for the libraries):
+
+    py -m venv .venv
+
+
+STEP 4 - Activate the virtual environment (every time you open PowerShell)
+--------------------------------------------------------------------------
+    .venv\Scripts\activate
+
+You'll see (.venv) at the start of the line when it's active.
+To leave it later, type:
+
+    deactivate
+
+
+STEP 5 - Install the libraries (only once, with the venv active)
+----------------------------------------------------------------
+    pip install pynput pillow
+
+
+STEP 6 - Run a script (with the venv active)
+--------------------------------------------
+Timer version (eats every X minutes):
+
+    python auto_eat.py
+
+Health-bar version (watches the hunger bar):
+
+    python auto_eat_watch.py
+
+Press F8 to stop either script.
+
+
+SHORTCUT - run without activating
+---------------------------------
+    .venv\Scripts\python auto_eat.py
+
+
+IF ROBLOX IGNORES THE KEY PRESSES
+---------------------------------
+Some games don't react to simulated keys from pynput. Try installing:
+
+    pip install pydirectinput
+
+Then the scripts need a small change to use it for the keyboard.
